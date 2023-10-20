@@ -16,6 +16,15 @@ long arrayToInt(int length, int* sumArray)
     return sum;
 }
 
+void reverseArray(int length, int* number)
+{
+    for (int i = 0; i < length / 2; i++) {
+        int temp = number[i];
+        number[i] = number[length - i - 1];
+        number[length - i - 1] = temp;
+    }
+}
+
 long largeSum(int noNumber, int* lengths, int** numbers)
 {
     int* sumArray = numbers[0];
@@ -27,8 +36,8 @@ long largeSum(int noNumber, int* lengths, int** numbers)
         for (j = lengths[i] - 1; j >= 0; j--) {
             sumArray[j] += numbers[i][j];
             if (sumArray[j] >= 10) {
-                carry = sumArray[j] % 10;
-                sumArray[j] /= 10;
+                carry = sumArray[j] / 10;
+                sumArray[j] %= 10;
             }
         }
         
@@ -110,6 +119,8 @@ int main(int argc, char **argv)
     }
     fclose(fp);
     lengths[noNumbers - 1] = noDigits;
+
+    printf("%ld\n", arrayToInt(reverseArray(lengths[0], numbers[0])));
 
     printf("%ld\n", largeSum(noNumbers, lengths, numbers));
 
