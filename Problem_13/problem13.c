@@ -3,67 +3,51 @@
 #include <string.h>
 #include <math.h>
 
-int noNumbers = 100;    // Number of numbers
-int noDigits = 50;      // Number of digits in each number
-
-int arrayToInt(int* sumArray)
+long arrayToInt(int length, int* sumArray)
 {
-    int sum = 0;
+    long sum = 0;
+    long n = 1;
     for (int i = 0; i < 10; i++)
     {
-        sum += sumArray[i] * pow(10, i);
+        sum += sumArray[i] * n;
+        n *= 10;
     }
+
     return sum;
 }
 
-int largeSum(int* numbers)
+long largeSum(int noNumber, int* lengths, int** numbers)
 {
-    int length = noDigits;
-    int sumArray = malloc(sizeof(int) * length);
-    if (sumArray == NULL) {
-        printf("Memory allocation failed.");
-        return 1;
-    }
+    int* sumArray = numbers[0];
+    int j;
     int carry;
 
-    memset(sumArray, 0, (noDigits + 1) * sizeof(int));
-
-    for (int i = 0; i < noNumbers; i++)
-    {
+    for (int i = 0; i < noNumber; i++) {
         carry = 0;
-        for (int j = 0; j < noDigits; j++)
-        {
-            sumArray[j] += numbers[noDigits - j + 1];
-            sumArray[j] += carry;
-
-            if (sumArray[j] >= 10) 
-            {
+        for (j = lengths[i] - 1; j >= 0; j--) {
+            sumArray[j] += numbers[i][j];
+            if (sumArray[j] >= 10) {
                 carry = sumArray[j] % 10;
                 sumArray[j] /= 10;
             }
-            else
-            {
-                carry = 0;
+        }
+        
+        if (carry > 0) {
+            j++;
+            sumArray = realloc(sumArray, sizeof(int) * j);
+            if (sumArray == NULL) {
+                printf("Memory allocation failed.");
+                return 1;
             }
-            printf("%d", sumArray[j]);
+            sumArray[j] = carry;
         }
-
-        if (carry > 0)
-        {
-            sumArray = realloc(sumArray, sizeof(int) * (length + 1));
-            sumArray[length] = carry;
-            length++;
-        }
-        printf("\n");
     }
 
-    return arrayToInt(sumArray);
+    return arrayToInt(j, sumArray);
 }
 
 int main(int argc, char **argv)
 {
-    int numbers[noNumbers][noDigits];
-
     char* file = "numbers.txt";
 
     if (argc > 1)   // Take file name from command line
@@ -78,27 +62,56 @@ int main(int argc, char **argv)
         return 1;
     }
 
-    int i = 0, j = 0;
+    int noNumbers = 1;    // Number of numbers
+    int noDigits = 0;     // Number of digits in each number
+
+    int** numbers = malloc(sizeof(int*));
+    int* lengths = malloc(sizeof(int));
+    if (numbers == NULL || lengths == NULL) {
+        printf("Memory allocation failed.");
+        return 1;
+    }
+
+    numbers[0] = malloc(sizeof(int));
+    if (numbers[0] == NULL) {
+        printf("Memory allocation failed.");
+        return 1;
+    }
 
     char input = fgetc(fp);
     while (input != EOF)
     {
         if (input == '\n')
         {
-            i++;
-            j = 0;
+            lengths[noNumbers - 1] = noDigits;
+
+            noNumbers++;
+            numbers = realloc(numbers, sizeof(int*) * noNumbers);
+            lengths = realloc(lengths, sizeof(int*) * noNumbers);
+            if (numbers == NULL) {
+                printf("Memory allocation failed.");
+                return 1;
+            }
+
+            noDigits = 0;
         }
         else
         {
-            numbers[i][j] = input - '0';    // Convert char to int
-            j++;
+            noDigits++;
+            numbers[noNumbers - 1] = realloc(numbers[noNumbers - 1], sizeof(int) * noDigits);
+            if (numbers[noNumbers - 1] == NULL) {
+                printf("Memory allocation failed.");
+                return 1;
+            }
+            numbers[noNumbers - 1][noDigits - 1] = input - '0';    // Convert char to int
         }
 
         input = fgetc(fp);
     }
     fclose(fp);
+    lengths[noNumbers - 1] = noDigits;
 
-    printf("%d\n", largeSum(*numbers));
+    printf("%ld\n", largeSum(noNumbers, lengths, numbers));
 
     return 0;
 }
