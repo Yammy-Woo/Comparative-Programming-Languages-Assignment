@@ -3,17 +3,31 @@
 #include <string.h>
 #include <math.h>
 
-long arrayToInt(int length, int* sumArray)
+long arrayToInt(int length, int* number)
 {
     long sum = 0;
     long n = 1;
-    for (int i = 0; i < 10; i++)
+
+    if (length > 10) {
+        length = 10;
+    }
+
+    for (int i = length - 1; i >= 0; i--)
     {
-        sum += sumArray[i] * n;
+        sum += number[i] * n;
         n *= 10;
     }
 
     return sum;
+}
+
+// For testing
+void arrayToString(int length, int* number) {
+    for (int i = 0; i < length; i++)
+    {
+        printf("%d", number[i]);
+    }   
+    printf("\n");
 }
 
 void reverseArray(int length, int* number)
@@ -25,34 +39,58 @@ void reverseArray(int length, int* number)
     }
 }
 
+void addLength(int currentLength, int targetLength, int* number) {
+    reverseArray(currentLength, number);    // Reverse array before reallocation such that new 0s are added at the head of the array
+    number = realloc(number, sizeof(int) * targetLength);
+    if (number == NULL) {
+        printf("Memory allocation failed.");
+        exit(1);
+    }
+    reverseArray(targetLength, number);
+}
+
 long largeSum(int noNumber, int* lengths, int** numbers)
 {
     int* sumArray = numbers[0];
+    int sumLength = lengths[0];
     int j;
-    int carry;
+    int carry = 0;
 
-    for (int i = 0; i < noNumber; i++) {
-        carry = 0;
+    for (int i = 1; i < noNumber; i++) {
+        if (sumLength < lengths[i]) {
+            addLength(sumLength, lengths[i], sumArray);
+            sumLength = lengths[i];
+        }
+        else if (lengths[i] < sumLength) {
+            addLength(lengths[i], sumLength, numbers[i]);
+            lengths[i] = sumLength;
+        }
+
         for (j = lengths[i] - 1; j >= 0; j--) {
-            sumArray[j] += numbers[i][j];
+            sumArray[j] += numbers[i][j] + carry;
             if (sumArray[j] >= 10) {
                 carry = sumArray[j] / 10;
                 sumArray[j] %= 10;
             }
+            else {
+                carry = 0;
+            }
         }
         
         if (carry > 0) {
-            j++;
-            sumArray = realloc(sumArray, sizeof(int) * j);
+            reverseArray(sumLength, sumArray);
+            sumLength++;
+            sumArray = realloc(sumArray, sizeof(int) * sumLength);
             if (sumArray == NULL) {
                 printf("Memory allocation failed.");
-                return 1;
+                exit(1);
             }
-            sumArray[j] = carry;
+            reverseArray(sumLength, sumArray);
+            sumArray[0] = carry;
         }
     }
 
-    return arrayToInt(j, sumArray);
+    return arrayToInt(sumLength, sumArray);
 }
 
 int main(int argc, char **argv)
@@ -119,8 +157,6 @@ int main(int argc, char **argv)
     }
     fclose(fp);
     lengths[noNumbers - 1] = noDigits;
-
-    printf("%ld\n", arrayToInt(reverseArray(lengths[0], numbers[0])));
 
     printf("%ld\n", largeSum(noNumbers, lengths, numbers));
 

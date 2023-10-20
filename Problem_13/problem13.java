@@ -50,7 +50,6 @@ class LongInteger {
         int length = Math.max(this.size(), other.size());
         int carry = 0;
 
-        System.out.println("Add " + other);
         for (int i = 0; i < length; i++) {
             int sumDigit = this.get(this.size() - i - 1) + other.get(other.size() - i - 1) + carry;
 
@@ -61,19 +60,15 @@ class LongInteger {
             else {
                 carry = 0;
             }
-            // System.out.println("Digit: " + sumDigit + " Carry: " + carry);
             
             sum.add(i, sumDigit);
         }
 
         Collections.reverse(sum);
-        System.out.println("Step 1: " + sum + "\nCarry: " + carry);
 
         if (carry > 0) {
             sum.add(0, carry);
         }
-
-        System.out.println("Step 2: " + sum);
 
         return new LongInteger(sum);
     }
@@ -106,12 +101,9 @@ public class problem13 {
             System.out.println("Failed to open file.");
         }
 
-        System.out.println(numbers);
-
         LongInteger sum = new LongInteger();
         for (LongInteger number : numbers) {
             sum = sum.plus(number);
-            System.out.println(sum);
         }
         System.out.println(sum.trim(10));
     }
