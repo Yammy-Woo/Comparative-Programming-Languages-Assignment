@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 class Digit {
     int value;
     Digit prev = null;
