@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <limits.h>
 
-unsigned long long int factorialWithStart(int r, int n) {
+unsigned long long int factorialWithStart(int r, unsigned long long int n) {
     if (n <= r) {
         return 1;
     }
