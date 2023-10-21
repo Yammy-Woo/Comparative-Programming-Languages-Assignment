@@ -6,13 +6,14 @@ unsigned long long int factorialWithStart(int r, unsigned long long int n) {
     if (n <= r) {
         return 1;
     }
+
     unsigned long long int accumulator = factorialWithStart(r, n - 1);
-    if (accumulator < 0) {
-        return -1;
+    if (accumulator <= 0) {
+        return 0;
     }
     if (ULLONG_MAX / accumulator < n) {
-        printf("Too Large\n");
-        n = -1;
+        printf("Too Large! Max: %llu\n", ULLONG_MAX);
+        n = 0;
     }
     return n * accumulator;
 }
@@ -31,7 +32,7 @@ unsigned long long int combination(int n, int r) {
         result = factorialWithStart(r, n) / factorial(n - r);
     }
     
-    if (result < 0) {
+    if (result <= 0) {
         printf("%d %d %d %d %d\n", n - r, n / 2, r, n / 2, n);
         return factorialWithStart(n - r, n / 2) / factorial(r) * factorialWithStart(n / 2, n);
     }
