@@ -40,7 +40,7 @@ unsigned long long int combination(int n, int r) {
 }
 
 unsigned long long int countWays(int red, int green, int blue, int totalUnits) {
-    unsigned long long  count = 0;
+    unsigned long long count = 0;
     for (int i = 0; i * red <= totalUnits; i++) { // Start from 1 and increment the number of red/green/blue tiles
         for (int j = 0; i * red + j * green <= totalUnits; j++) {
             for (int k = 0; i * red + j * green + k * blue <= totalUnits; k++) {
