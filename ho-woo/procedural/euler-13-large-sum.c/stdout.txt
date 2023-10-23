@@ -2,7 +2,7 @@ $ gcc euler-13-highly-divisible-triangular-number.c -lm -o executable
 $ ./executable
 Fail to open file.
 $ ./executable __tests/empty.txt
-
+0
 $ ./executable __tests/one-input.txt
 1
 $ ./executable __tests/test.txt
