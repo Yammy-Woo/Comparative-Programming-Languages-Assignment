@@ -1,7 +1,7 @@
 $ java euler_13_large_sum
 Failed to open file.
 $ java euler_13_large_sum __tests/empty.txt
-
+0
 $ java euler_13_large_sum __tests/one-input.txt
 1
 $ java euler_13_large_sum __tests/test.txt
