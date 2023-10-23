@@ -1,4 +1,6 @@
-$ gcc euler-12-highly-divisible-triangular-number.c -lm -o executable
+$ gcc euler-13-highly-divisible-triangular-number.c -lm -o executable
+$ ./executable
+Fail to open file.
 $ ./executable __tests/empty.txt
 
 $ ./executable __tests/one-input.txt

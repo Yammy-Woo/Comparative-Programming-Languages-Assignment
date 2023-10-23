@@ -1,0 +1,17 @@
+$ gcc euler-12-highly-divisible-triangular-number.c -lm -o executable
+$ ./executable 0
+1
+$ ./executable 1
+2
+$ ./executable 6
+10
+$ ./executable 10
+7
+$ ./executable 25
+29
+$ ./executable 300
+424
+$ ./executable 1000
+1366
+$ ./executable
+1366

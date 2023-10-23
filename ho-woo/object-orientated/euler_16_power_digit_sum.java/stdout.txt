@@ -12,3 +12,5 @@ $ java euler_16_power_digit_sum 300
 424
 $ java euler_16_power_digit_sum 1000
 1366
+$ java euler_16_power_digit_sum
+1366

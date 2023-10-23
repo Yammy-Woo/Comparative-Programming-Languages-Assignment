@@ -1,9 +1,0 @@
-$ gcc euler-12-highly-divisible-triangular-number.c -lm -o executable
-$ ./executable __tests/empty.txt
-
-$ ./executable __tests/one-input.txt
-1
-$ ./executable __tests/test.txt
-9999999999
-$ ./executable __tests/numbers.txt
-5537376230

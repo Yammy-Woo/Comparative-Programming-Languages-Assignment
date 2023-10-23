@@ -88,9 +88,15 @@ class LongInteger {
 
 public class euler_13_large_sum {
     public static void main(String[] args) {
+        String fileName = "numbers.txt";    // numbers.txt for testing
+        if (args.length > 0)
+        {
+            fileName = args[0];
+        }
+
         ArrayList<LongInteger> numbers = new ArrayList<LongInteger>();
         try {
-            File file = new File("numbers.txt");
+            File file = new File(fileName);
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
@@ -99,6 +105,7 @@ public class euler_13_large_sum {
             scanner.close();
         } catch (FileNotFoundException e) {
             System.out.println("Failed to open file.");
+            System.exit(-1);
         }
 
         LongInteger sum = new LongInteger();

@@ -28,7 +28,7 @@ Upload your solution to https://euler.computing.dcu.ie/einstein/[_Einstein_].
 
 .Example invocation
 ----
-$ java euler-16-power-digit-sum 10
+$ ./euler-16-power-digit-sum 10
 ----
 
 .Example standard output
