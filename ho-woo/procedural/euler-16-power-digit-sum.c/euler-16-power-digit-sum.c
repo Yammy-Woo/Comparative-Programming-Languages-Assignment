@@ -15,15 +15,13 @@ void printSum(Digit* tail) {
     Digit *current = tail;
     int sum = 0;
 
-    printf("Power: ");
     do
     {
         sum += current->value;
-        printf("%d", current->value);
         current = current->prev;
     } while (current != NULL);
 
-    printf("\nSum: %d\n", sum);
+    printf("%d\n", sum);
 }
 
 Digit* powerToDigits(Digit* head, Digit* tail) {
