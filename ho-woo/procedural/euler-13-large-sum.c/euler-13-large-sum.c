@@ -95,7 +95,7 @@ int main(int argc, char **argv)
 
     FILE *fp;
     fp = fopen(file, "r");
-    if (file == NULL) {
+    if (fp == NULL) {
         printf("Fail to open file.\n");
         return 1;
     }
