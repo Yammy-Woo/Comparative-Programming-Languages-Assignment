@@ -9,6 +9,7 @@ class LongInteger {
 
     LongInteger() {
         this.number = new ArrayList<Integer>();
+        this.number.add(0);
     }
 
     LongInteger(ArrayList<Integer> number) {
