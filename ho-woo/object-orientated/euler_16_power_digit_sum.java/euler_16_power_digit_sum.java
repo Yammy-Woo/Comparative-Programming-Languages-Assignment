@@ -94,7 +94,7 @@ class PowerDigitSum {
     }
 }
 
-public class problem16 {
+public class euler_16_power_digit_sum {
     public static void main(String[] args)
     {
         int exponent = 1000;

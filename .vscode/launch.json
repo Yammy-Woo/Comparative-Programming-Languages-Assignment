@@ -1,0 +1,28 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "euler_13_large_sum",
+            "request": "launch",
+            "mainClass": "euler_13_large_sum",
+            "projectName": "2023-ca341-assignment1_4092d785"
+        },
+        {
+            "type": "java",
+            "name": "euler_16_power_digit_sum",
+            "request": "launch",
+            "mainClass": "euler_16_power_digit_sum",
+            "projectName": "2023-ca341-assignment1_4092d785"
+        }
+    ]
+}
