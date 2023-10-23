@@ -1,0 +1,14 @@
+$ java euler_16_power_digit_sum 0
+1
+$ java euler_16_power_digit_sum 1
+2
+$ java euler_16_power_digit_sum 6
+10
+$ java euler_16_power_digit_sum 10
+7
+$ java euler_16_power_digit_sum 25
+29
+$ java euler_16_power_digit_sum 300
+424
+$ java euler_16_power_digit_sum 1000
+1366

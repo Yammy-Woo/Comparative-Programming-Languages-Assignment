@@ -18,8 +18,10 @@ Euler problem 13: https://projecteuler.net/problem=13.
 
 .Task
 ****
+Assume a single command-line argument, a string representing a .txt file name, e.g. `numbers.txt`.
+
 Write a C script named `euler-13-large-sum.c` which writes the first ten digits of 
-the sum of numbers read from numbers.txt file to standard output.
+the sum of numbers read from the .txt file to standard output.
 
 numbers.txt contains one-hundred 50-digit numbers.
 
