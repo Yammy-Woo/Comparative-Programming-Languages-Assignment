@@ -1,0 +1,14 @@
+$ java euler_50_consecutive_prime_sum
+997651
+$ java euler_50_consecutive_prime_sum 0
+The input limit cannot be 2 or lower, since 2 is the first prime number.
+$ java euler_50_consecutive_prime_sum 2
+The input limit cannot be 2 or lower, since 2 is the first prime number.
+$ java euler_50_consecutive_prime_sum 3
+2
+$ java euler_50_consecutive_prime_sum 100
+41
+$ java euler_50_consecutive_prime_sum 1000
+953
+$ java euler_50_consecutive_prime_sum 1000000
+997651
