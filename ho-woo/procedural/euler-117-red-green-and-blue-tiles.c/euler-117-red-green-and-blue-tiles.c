@@ -25,16 +25,16 @@ char* add(char* n1, char* n2) {
     addLength(length, n2);
 
     for (int i = length - 1; i >= 0; i--) {
-        int tempProduct = (n1[i] - '0') + (n2[i] - '0') + carry;
-        if (tempProduct >= 10) {
-            carry = tempProduct / 10;
-            tempProduct %= 10;
+        int tempSum = (n1[i] - '0') + (n2[i] - '0') + carry;
+        if (tempSum >= 10) {
+            carry = tempSum / 10;
+            tempSum %= 10;
         }
         else {
             carry = 0;
         }
         char newSum[length];
-        sprintf(newSum, "%d", tempProduct);
+        sprintf(newSum, "%d", tempSum);
         strcat(newSum, sum);     // Insert new digit before sum
         strcpy(sum, newSum);
     }
@@ -45,6 +45,30 @@ char* add(char* n1, char* n2) {
         strcpy(sum, newSum);
     }
     return sum;
+}
+
+char* subtract(char* n1, char* n2) {
+    int borrow = 0;
+    int length = strlen(n1) > strlen(n2) ? strlen(n1) : strlen(n2);
+    char* difference = malloc(sizeof(char) * length);
+    addLength(length, n1);
+    addLength(length, n2);
+
+    for (int i = length - 1; i >= 0; i--) {
+        int tempDiff = (n1[i] - '0') - (n2[i] - '0') + borrow;
+        if (tempDiff < 0) {
+            borrow = tempDiff / 10;
+            tempDiff %= -10;
+        }
+        else {
+            borrow = 0;
+        }
+        char newDifference[length];
+        sprintf(newDifference, "%d", tempDiff);
+        strcat(newDifference, difference);     // Insert new digit before difference
+        strcpy(difference, newDifference);
+    }
+    return difference;
 }
 
 char* multiply(char* n1, char* n2) {
@@ -151,8 +175,8 @@ int main(int argc, char **argv)
     char* n1 = malloc(sizeof(char) * 100);
     char* n2 = malloc(sizeof(char) * 100);
     strcpy(n1, "31");
-    strcpy(n2, "");
-    printf("%s\n", combination(31, 11));
+    strcpy(n2, "1");
+    printf("%s\n", subtract(n1, n2));
 
     // int count = countWaysBase(size, colors, totalUnits);
     // printf("%d\n", count);
