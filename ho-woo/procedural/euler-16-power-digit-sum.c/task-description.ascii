@@ -23,6 +23,8 @@ Assume a single command-line argument, a non-negative integer $n$.
 Write a C script named `euler-16-power-digit-sum.c` which computes the sum of digits
 of 2 to the power of any non-negative integer $n$.
 
+The default $n$ is 1000 when no input is given.
+
 Upload your solution to https://euler.computing.dcu.ie/einstein/[_Einstein_].
 ****
 

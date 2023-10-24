@@ -19,7 +19,8 @@ javac $TASK
 # It is also available in the `bin` directory in the project repo.  You can
 # install it locally from there for testing.
 #
-for v in 2 10 100 1000000
+file =  ('' '__tests/empty.txt' '__tests/one-input.txt' '__tests/test.txt' '__tests/numbers.txt')
+for v in "$file[@]"
 do
   show-exec-command java ${TASK%.java} $v
 done

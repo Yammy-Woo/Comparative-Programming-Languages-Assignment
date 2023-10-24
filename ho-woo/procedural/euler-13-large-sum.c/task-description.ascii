@@ -23,7 +23,8 @@ Assume a single command-line argument, a string representing a .txt file name, e
 Write a C script named `euler-13-large-sum.c` which writes the first ten digits of 
 the sum of numbers read from the .txt file to standard output.
 
-numbers.txt contains one-hundred 50-digit numbers.
+If the file with the given file name is not found, the program should print an error message:
+Failed to open file.
 
 Upload your solution to https://euler.computing.dcu.ie/einstein/[_Einstein_].
 ****

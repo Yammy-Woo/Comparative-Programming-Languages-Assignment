@@ -23,6 +23,9 @@ Assume a single command-line argument, a string representing a .txt file name, e
 Write a Java script named `euler-13-large-sum.java` which writes the first ten digits of 
 the sum of numbers read from the .txt file to standard output.
 
+If the file with the given file name is not found, the program should print an error message:
+Failed to open file.
+
 Upload your solution to https://euler.computing.dcu.ie/einstein/[_Einstein_].
 ****
 

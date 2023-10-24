@@ -23,6 +23,11 @@ Assume a single command-line argument, a non-negative integer $n$.
 Write a Java script named `euler_50_consecutive_prime_sum.java` which computes the longest sum of 
 consecutive primes below $n$ that adds to a prime.
 
+If the input integer is smaller than or equal to 2, the program should print the error message:
+The input limit cannot be 2 or lower, since 2 is the first prime number.
+
+The default $n$ is 1000000 when no input is given.
+
 Upload your solution to https://euler.computing.dcu.ie/einstein/[_Einstein_].
 ****
 

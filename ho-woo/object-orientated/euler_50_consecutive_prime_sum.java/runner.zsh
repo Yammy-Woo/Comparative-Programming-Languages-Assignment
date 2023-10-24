@@ -19,7 +19,7 @@ javac $TASK
 # It is also available in the `bin` directory in the project repo.  You can
 # install it locally from there for testing.
 #
-for v in 2 10 100 1000000
+for v in '' 0 2 3 100 1000 1000000
 do
   show-exec-command java ${TASK%.java} $v
 done
