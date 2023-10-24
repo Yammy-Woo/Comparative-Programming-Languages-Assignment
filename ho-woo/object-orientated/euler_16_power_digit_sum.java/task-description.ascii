@@ -20,7 +20,7 @@ Euler problem 16: https://projecteuler.net/problem=16.
 ****
 Assume a single command-line argument, a non-negative integer $n$.
 
-Write a Java script named `euler-16-power-digit-sum.js` which computes the sum of digits
+Write a Java script named `euler-16-power-digit-sum.java` which computes the sum of digits
 of 2 to the power of any non-negative integer $n$.
 
 The default $n$ is 1000 when no input is given.

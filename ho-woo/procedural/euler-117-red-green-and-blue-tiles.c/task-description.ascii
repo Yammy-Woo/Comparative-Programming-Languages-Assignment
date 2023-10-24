@@ -1,0 +1,55 @@
+////
+The format of this document is `asciidoc`, and it will be compiled with:
+
+   $ asciidoctor task-description.ascii
+
+This generates the HTML which will be included on the website.
+////
+
+// //////////////////////////////////////////////////////////////
+= Euler 117
+
+****
+Euler problem 117: https://projecteuler.net/problem=117.
+****
+
+// //////////////////////////////////////////////////////////////
+== C
+
+.Task
+****
+Assume a single command-line argument, a non-negative integer $n$.
+
+Using a combination of the following types of tiles: 
+grey tiles (measuring one unit)
+red tiles (measuring two units)
+green tiles (measuring three units)
+blue tiles (measuring four units)
+Write a C script named `euler_117_red_green_and_blue_tiles.c` which computes
+the number of ways to tile a row measuring $n$ units in length.
+
+The default $n$ is 50 when no input is given.
+
+Upload your solution to https://euler.computing.dcu.ie/einstein/[_Einstein_].
+****
+
+.Example invocation
+----
+$ ./ euler_117_red_green_and_blue_tiles 5
+----
+
+.Example standard output
+----
+15
+----
+
+.Explanation
+****
+Number of combinations when:
+All grey tiles: 1
+Red and grey tiles: 7
+Green and grey tiles: 3
+Blue and grey tiles: 2
+Red and Green tiles: 2
+The total number of combinations = 1 + 7 + 3 + 2 + 2 = 15.
+****

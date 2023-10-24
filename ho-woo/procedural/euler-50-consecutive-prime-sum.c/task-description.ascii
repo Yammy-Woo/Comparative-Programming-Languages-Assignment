@@ -1,0 +1,49 @@
+////
+The format of this document is `asciidoc`, and it will be compiled with:
+
+   $ asciidoctor task-description.ascii
+
+This generates the HTML which will be included on the website.
+////
+
+// //////////////////////////////////////////////////////////////
+= Euler 50
+
+****
+Euler problem 50: https://projecteuler.net/problem=50.
+****
+
+// //////////////////////////////////////////////////////////////
+== C
+
+.Task
+****
+Assume a single command-line argument, a non-negative integer $n$.
+
+Write a C script named `euler_50_consecutive_prime_sum.c` which computes the longest sum of 
+consecutive primes below $n$ that adds to a prime.
+
+If the input integer is smaller than or equal to 2, the program should print the error message:
+The input limit cannot be 2 or lower, since 2 is the first prime number.
+
+The default $n$ is 1000000 when no input is given.
+
+Upload your solution to https://euler.computing.dcu.ie/einstein/[_Einstein_].
+****
+
+.Example invocation
+----
+$ ./euler_50_consecutive_prime_sum 100
+----
+
+.Example standard output
+----
+41
+----
+
+.Explanation
+****
+The prime 41 can be written as the sum of six consecutive primes:
+41 = 2 + 3 + 5 + 7 + 11 + 13
+This is the longest sum of consecutive primes that adds to a prime below one-hundred.
+****
