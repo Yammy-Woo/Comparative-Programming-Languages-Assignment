@@ -100,7 +100,7 @@ class LongInteger {
 
 public class euler_13_large_sum {
     public static void main(String[] args) {
-        String fileName = "numbers.txt";    // numbers.txt for testing
+        String fileName = "numbers.txt";    // Default fileName is numbers.txt for testing
         if (args.length > 0)
         {
             fileName = args[0];     // Get file name from command line
