@@ -62,8 +62,8 @@ class LongInteger {
             int sumDigit = this.get(this.size() - i - 1) + other.get(other.size() - i - 1) + carry;
             // If the sum of the two digits >= 10, minus the sum by 10 and store the carry
             if (sumDigit >= 10) {
-                carry = sumDigit - 10;
-                sumDigit %= 10;
+                carry = sumDigit / 10;
+                sumDigit -= 10;
             }
             else {
                 carry = 0;  // Else set carry to 0
