@@ -18,7 +18,7 @@ show-exec-command gcc $TASK -lm -o executable
 # It is also available in the `bin` directory in the project repo.  You can
 # install it locally from there for testing.
 #
-for v in 10 1001 1003 10991 100245 1000001
+for v in '' 0 1 2 5 50
 do
   show-exec-command ./executable $v
 done

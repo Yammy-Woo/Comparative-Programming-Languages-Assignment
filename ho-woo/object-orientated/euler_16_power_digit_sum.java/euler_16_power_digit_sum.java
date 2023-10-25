@@ -1,3 +1,4 @@
+/* Digit represents a digit */
 class Digit {
     int value;
     Digit prev = null;
@@ -12,6 +13,7 @@ class Digit {
     }
 }
 
+/* DigitList represents a linked list of Digits */
 class DigitList {
     Digit head;
     Digit tail;
@@ -34,6 +36,7 @@ class DigitList {
     }
 }
 
+/* PowerDigitSum represents the sum of the digits of 2 power a given exponent */
 class PowerDigitSum {
     final int base = 2;
     int exponent;
