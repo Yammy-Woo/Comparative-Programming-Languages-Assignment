@@ -59,7 +59,7 @@ class Prime {
     }
 
     public static boolean checkSet(ArrayList<Integer> set) {
-        if (set.size() < 2) { return false; }
+        if (set.size() < 2) { return true; }
         for (int prime1 : set) {
             for (int prime2 :set) {
                 if (prime1 >= prime2) { continue; }
@@ -79,14 +79,16 @@ class Prime {
             if (prime == 2 || prime == 5) { continue; }
             set.add(prime);
             lastPrime = prime;
-            ArrayList<Integer> newSet = new ArrayList<Integer>(primePairSet(noPrime - 1, set, lastPrime));
-            if (checkSet(newSet)) { 
-                return newSet; 
+            if (checkSet(set)) { 
+                ArrayList<Integer> newSet = new ArrayList<Integer>(primePairSet(noPrime - 1, set, lastPrime));
+                System.out.println("Sucess\t" + prime + ": " + newSet);
+                if (checkSet(newSet) && set.size() == noPrime) { 
+                    return newSet; 
+                }
             }
-            //System.out.println(newSet);
             if (set.isEmpty()) { continue; }
             set.remove(set.size() - 1);
-            
+            System.out.println("Fail\t" + prime + ": " + set);
         }
         //if (!set.isEmpty()) { set.remove(set.size() - 1); }
         
@@ -179,6 +181,7 @@ class Prime {
         //ArrayList<Integer> set = primePairSet(new ArrayList<Integer>(), new ArrayList<>(primes), noPrime);
         ArrayList<Integer> set = primePairSet(noPrime);
         if (set.size() < noPrime) {
+            System.out.println(set);
             System.out.println("Set not found.");
             return 0;
         }
