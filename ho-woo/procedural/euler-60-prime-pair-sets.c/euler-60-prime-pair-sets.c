@@ -31,8 +31,9 @@ bool isPrimeByList(long int n) {
 
 /* Function to check whether a given number is a prime number */
 bool isPrime(long int n) {
+    printf("Prime?");
     if (!isPrimeByList(n)) { return false; }
-    
+    printf("Too Large?");
     if (primes[primeSize - 1] <= sqrt(n)) {
         for (long int i = firstPrime; i <= sqrt(n); i++) {
         if (n % i == 0) { return false; } // False if the given number is not a prime number
@@ -101,7 +102,7 @@ int* primePairSetRecur(int noPrime, int* set, int lastPrime) {
             /* Initialise newSet and add the prime to the set, 
                then recursively call primePairSet() to find next prime */ 
             int* newSet = malloc(sizeof(set));
-            memcpy(newSet, set, sizeof(set));
+            memcpy(newSet, set, sizeof(int) * setSize);
             newSet[setSize - noPrime] = primes[i];
             printf("Before recursion: ");
             printArray(setSize - noPrime + 1, newSet);
@@ -155,10 +156,12 @@ int main(int argc, char **argv) {
             return 0;
         }
     }
- 
+    
+    printf("Hi\n");
+    printf("%d\n", isPrime(3));
     printf("%s\n", isPrime(6733) ? "true" : "false");
-    printf("%s\n", checkPrimeConcat(673, 3) ? "true" : "false");
+    //printf("%s\n", checkPrimeConcat(673, 3) ? "true" : "false");
     // printf("%d\n", sumOfPrimePairSet());
-    int temp[3] = {3, 7, 109};
-    printf("%s\n", checkSet(673, temp) ? "true" : "false");
+    //int temp[3] = {3, 7, 109};
+    //printf("%s\n", checkSet(673, temp) ? "true" : "false");
 }
