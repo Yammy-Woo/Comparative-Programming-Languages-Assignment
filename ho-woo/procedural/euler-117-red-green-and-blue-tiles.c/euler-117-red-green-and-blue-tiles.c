@@ -13,7 +13,7 @@ char* addLength(int length, char* n) {
     }
     char* newN = malloc(sizeof(char) * length);
     if (newN == NULL) {
-        printf("Memory allocation failed.");
+        printf("Memory allocation failed.\n");
         exit(1);
     }
     
@@ -31,7 +31,7 @@ char* add(char* n1, char* n2) {
     int length = strlen(n1) > strlen(n2) ? strlen(n1) : strlen(n2);
     char* sum = malloc(sizeof(char) * (length + 1));
     if (sum == NULL) {
-        printf("Memory allocation failed.");
+        printf("Memory allocation failed.\n");
         exit(1);
     }
 
@@ -68,7 +68,7 @@ char* subtract(char* n1, char* n2) {
     int length = strlen(n1) > strlen(n2) ? strlen(n1) : strlen(n2);
     char* difference = malloc(sizeof(char) * length);
     if (difference == NULL) {
-        printf("Memory allocation failed.");
+        printf("Memory allocation failed.\n");
         exit(1);
     }
 
@@ -101,7 +101,7 @@ char* multiply(char* n1, char* n2) {
     char* tens = malloc(sizeof(char) * maxLength);
     char* product = malloc(sizeof(char) * maxLength);
     if (tens == NULL || product == NULL) {
-        printf("Memory allocation failed.");
+        printf("Memory allocation failed.\n");
         exit(1);
     }
     product = "0";
@@ -109,7 +109,7 @@ char* multiply(char* n1, char* n2) {
     for (int i = strlen(n1) - 1; i >= 0; i--) {
         char* newProduct = malloc(sizeof(char) * maxLength);
         if (newProduct == NULL) {
-            printf("Memory allocation failed.");
+            printf("Memory allocation failed.\n");
             exit(1);
         }
 
@@ -158,7 +158,7 @@ char* divide(char* n1, char* n2) {
     char* tempDividend = malloc(sizeof(char) * strlen(n1));
     char* quotient = malloc(sizeof(char) * strlen(n1));
     if (tempDividend == NULL || quotient == NULL) {
-        printf("Memory allocation failed.");
+        printf("Memory allocation failed.\n");
         exit(1);
     }
     printf("n1: %s n2: %s\n", n1, n2);
@@ -224,7 +224,7 @@ char* combination(int n, int r) {
 char* countWays(int red, int green, int blue, int totalUnits) {
     char* count = malloc(sizeof(char) * MAX_LENGTH);
     if (count == NULL) {
-        printf("Memory allocation failed.");
+        printf("Memory allocation failed.\n");
         exit(1);
     }
 

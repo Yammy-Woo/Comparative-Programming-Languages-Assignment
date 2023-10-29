@@ -30,7 +30,7 @@ Digit* powerToDigits(Digit* head, Digit* tail) {
     Digit* temp = malloc(sizeof(Digit));
 
     if (current == NULL || temp == NULL) {
-        printf("Memory allocation failed.");
+        printf("Memory allocation failed.\n");
         exit(1);
     }
 
@@ -59,7 +59,7 @@ Digit* powerToDigits(Digit* head, Digit* tail) {
         {
             tail->next = malloc(sizeof(Digit));
             if (tail->next == NULL) {
-                printf("Memory allocation failed.");
+                printf("Memory allocation failed.\n");
                 exit(1);
             }
 
@@ -83,7 +83,7 @@ int main(int argc, char **argv)
     /* Initialize head of the linked list */
     Digit *head = malloc(sizeof(Digit));
     if (head == NULL) {
-        printf("Memory allocation failed.");
+        printf("Memory allocation failed.\n");
         return 1;
     }
     head->value = 1;

@@ -56,7 +56,7 @@ int main(int argc, char **argv)
     /* Initialize head of the linked list */
     Prime *head = malloc(sizeof(Prime));
     if (head == NULL) {
-        printf("Memory allocation failed.");
+        printf("Memory allocation failed.\n");
         return 1;
     }
     head->value = i;
@@ -75,7 +75,7 @@ int main(int argc, char **argv)
         if (isPrime(i)) {
             current->next = malloc(sizeof(Prime));
             if (current->next == NULL) {
-                printf("Memory allocation failed.");
+                printf("Memory allocation failed.\n");
                 return 1;
             }
 

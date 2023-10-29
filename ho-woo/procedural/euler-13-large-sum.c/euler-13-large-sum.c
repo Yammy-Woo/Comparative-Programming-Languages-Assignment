@@ -34,7 +34,7 @@ void addLength(int currentLength, int targetLength, int* number) {
     reverseArray(currentLength, number);    // Reverse array before reallocation such that new 0s are added at the head of the array
     number = realloc(number, sizeof(int) * targetLength);
     if (number == NULL) {
-        printf("Memory allocation failed.");
+        printf("Memory allocation failed.\n");
         exit(1);
     }
     reverseArray(targetLength, number);
@@ -73,7 +73,7 @@ long largeSum(int noNumber, int* lengths, int** numbers)
             sumLength++;
             sumArray = realloc(sumArray, sizeof(int) * sumLength);
             if (sumArray == NULL) {
-                printf("Memory allocation failed.");
+                printf("Memory allocation failed.\n");
                 exit(1);
             }
             reverseArray(sumLength, sumArray);
@@ -106,13 +106,13 @@ int main(int argc, char **argv)
     int** numbers = malloc(sizeof(int*));
     int* lengths = malloc(sizeof(int));
     if (numbers == NULL || lengths == NULL) {
-        printf("Memory allocation failed.");
+        printf("Memory allocation failed.\n");
         return 1;
     }
 
     numbers[0] = malloc(sizeof(int));
     if (numbers[0] == NULL) {
-        printf("Memory allocation failed.");
+        printf("Memory allocation failed.\n");
         return 1;
     }
 
@@ -127,7 +127,7 @@ int main(int argc, char **argv)
             numbers = realloc(numbers, sizeof(int*) * noNumbers);
             lengths = realloc(lengths, sizeof(int*) * noNumbers);
             if (numbers == NULL) {
-                printf("Memory allocation failed.");
+                printf("Memory allocation failed.\n");
                 return 1;
             }
 
@@ -138,7 +138,7 @@ int main(int argc, char **argv)
             noDigits++;
             numbers[noNumbers - 1] = realloc(numbers[noNumbers - 1], sizeof(int) * noDigits);
             if (numbers[noNumbers - 1] == NULL) {
-                printf("Memory allocation failed.");
+                printf("Memory allocation failed.\n");
                 return 1;
             }
             numbers[noNumbers - 1][noDigits - 1] = input - '0';    // Convert char to int

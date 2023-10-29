@@ -45,12 +45,20 @@ bool isPrime(long int n) {
 
 void generatePrimes() {
     primes = malloc(sizeof(int));
+    if (primes == NULL) { 
+        printf("Memory allocation failed.\n");
+        exit(1);
+    }
     primeSize = 1;
     primes[0] = 2;
     for (int i = 3; i < MAXLIMIT; i += 2) {
         if (isPrimeByList(i)) {
             primeSize++;
             primes = realloc(primes, sizeof(int) * primeSize);
+            if (primes == NULL) { 
+                printf("Memory allocation failed.\n");
+                exit(1);
+            }
             primes[primeSize - 1] = i;
         }
     }
@@ -59,10 +67,18 @@ void generatePrimes() {
 bool checkPrimeConcat(int n1, int n2) {
     char* str1 = malloc(sizeof(char) * MAXDIGIT);
     char* str2 = malloc(sizeof(char) * MAXDIGIT);
+    if (str1 == NULL || str2 == NULL) { 
+        printf("Memory allocation failed.\n");
+        exit(1);
+    }
     sprintf(str1, "%d", n1);
     sprintf(str2, "%d", n2);
 
     char* concat = malloc(sizeof(char) * (strlen(str1) + strlen(str2)));
+    if (concat == NULL) { 
+        printf("Memory allocation failed.\n");
+        exit(1);
+    }
     strcpy(concat, str1);
     long int concat12 = atol(strcat(concat, str2));
     
@@ -94,6 +110,10 @@ int* primePairSetRecur(int noPrime, int* set, int lastPrime) {
             /* Initialise newSet and add the prime to the set, 
                then recursively call primePairSet() to find next prime */ 
             int* newSet = malloc(sizeof(int) * setSize);
+            if (newSet == NULL) { 
+                printf("Memory allocation failed.\n");
+                exit(1);
+            }
             memcpy(newSet, set, sizeof(int) * setSize);
             newSet[setSize - noPrime] = primes[i];
 
@@ -110,6 +130,10 @@ int* primePairSetRecur(int noPrime, int* set, int lastPrime) {
 
 int* primePairSet(int noPrime) {
     int* set = malloc(sizeof(int) * noPrime);
+    if (set == NULL) { 
+        printf("Memory allocation failed.\n");
+        exit(1);
+    }
     return primePairSetRecur(noPrime, set, 0);
 }
 
