@@ -79,8 +79,7 @@ class Prime {
                     /* Initialise newSet and add the prime to the set, then recursively call primePairSet() to find next prime */
                     ArrayList<Integer> newSet = new ArrayList<Integer>(set);
                     newSet.add(prime);
-                    lastPrime = prime;
-                    newSet = primePairSet(noPrime - 1, newSet, lastPrime);
+                    newSet = primePairSet(noPrime - 1, newSet, prime);
                     /* Check if the new set's size matches the number of primes required to be found */
                     if (newSet.size() - set.size() == noPrime) {
                         return newSet;  // Return the new set
