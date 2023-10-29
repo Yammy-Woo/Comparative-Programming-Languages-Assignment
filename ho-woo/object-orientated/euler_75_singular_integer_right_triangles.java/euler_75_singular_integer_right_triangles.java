@@ -11,7 +11,7 @@ class IntegerRightTriangle {
        a = k * (m^2 - n^2)
        b = k * 2mn
        c = k * (m^2 + n^2)
-       where k >= 1, m > n > 0, either m or n is even and m, n are coprime.
+       where k >= 1, m > n > 0 > 0, either m or n is even and m, n are coprime.
        Reference: https://en.wikipedia.org/wiki/Pythagorean_triple
     */
     /* Check whether the given two numbers are coprime, i.e. they have their highest common factor as 1. */
@@ -27,22 +27,13 @@ class IntegerRightTriangle {
 
     public static void findSides(int maxPerimeter) {
         perimeters = new HashMap<Integer, Integer>();
-        /* The sum of the triple, which is the perimeter, is
-           (m^2 - n^2) + 2mn + (m^2 + n^2) = 2(m^2) + 2mn.
-           Given m, the smallest perimeter will be 2(m^2) + 2m where n = 1.
-           Therefore, if 2(m^2) + 2m > maxPerimeter, the resulting perimeter must exceed maxPerimeter. 
-        */
-        for (int m = 2; 2 * m * m + 2 * m <= maxPerimeter; m++) {
-            for (int n = 1; n < m; n++) {
-                if ((m + n) % 2 == 0) { continue; } // Skip n when m and n are both even or odd
-                if (!coprime(m, n)) { continue; }   // Skip n when m and n are not coprime
-
-                int a = m * m + n * n;
-                int b = 2 * m * n;
-                int c = m * m - n * n;
-                int tripleSum = a + b + c;
-                for (int k = 1; k * tripleSum <= maxPerimeter; k++) {
-                    int perimeter = k * tripleSum;
+        for (int a = 3; a * 3 < maxPerimeter; a++) {
+            for (int b = a; a + b * 2 < maxPerimeter; b++) {
+                double temp = pythagoras(a, b);
+                if (temp % 1 == 0 && a + b + temp <= maxPerimeter) {
+                    int c = (int) temp;
+                    int perimeter = a + b + c;
+                    System.out.println(perimeter);
                     if (!perimeters.containsKey(perimeter)) {
                         perimeters.put(perimeter, 1);
                     }
