@@ -11,7 +11,7 @@ class IntegerRightTriangle {
        a = k * (m^2 - n^2)
        b = k * 2mn
        c = k * (m^2 + n^2)
-       where k >= 1, m > n > 0 > 0, either m or n is even and m, n are coprime.
+       where k >= 1, m > n > 0, either m or n is even and m, n are coprime.
        Reference: https://en.wikipedia.org/wiki/Pythagorean_triple
     */
     /* Check whether the given two numbers are coprime, i.e. they have their highest common factor as 1. */
