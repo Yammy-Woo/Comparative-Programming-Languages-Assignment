@@ -1,5 +1,4 @@
 import java.lang.Math;
-import java.util.ArrayList;
 
 class AlmostEquilateralTriangle {
     /* An almost equilateral triangle is also an isosceles triangle,
