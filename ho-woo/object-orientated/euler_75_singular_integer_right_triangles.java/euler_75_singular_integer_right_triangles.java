@@ -1,6 +1,5 @@
 import java.util.HashMap;
 import java.util.HashSet;
-import java.lang.Math;
 
 class IntegerRightTriangle {
     static HashMap<Integer, Integer> perimeters;
@@ -29,7 +28,7 @@ class IntegerRightTriangle {
         perimeters = new HashMap<Integer, Integer>();
         /* The sum of the triple, which is the perimeter, is
            (m^2 - n^2) + 2mn + (m^2 + n^2) = 2(m^2) + 2mn.
-           Given m, the smallest perimeter will be 2(m^2) + 2m where n = 1.
+           Given the smallest n = 1, the smallest perimeter will be 2(m^2) + 2m.
            Therefore, if 2(m^2) + 2m > maxPerimeter, the resulting perimeter must exceed maxPerimeter. 
         */
         for (int m = 2; 2 * m * m + 2 * m <= maxPerimeter; m++) {
@@ -37,9 +36,9 @@ class IntegerRightTriangle {
                 if ((m + n) % 2 == 0) { continue; } // Skip n when m and n are both even or odd
                 if (!coprime(m, n)) { continue; }   // Skip n when m and n are not coprime
 
-                int a = m * m + n * n;
+                int a = m * m - n * n;
                 int b = 2 * m * n;
-                int c = m * m - n * n;
+                int c = m * m + n * n;
                 int tripleSum = a + b + c;
                 for (int k = 1; k * tripleSum <= maxPerimeter; k++) {
                     int perimeter = k * tripleSum;
