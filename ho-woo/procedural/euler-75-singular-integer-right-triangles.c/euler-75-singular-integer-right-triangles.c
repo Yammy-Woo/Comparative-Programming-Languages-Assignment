@@ -101,7 +101,7 @@ int countSingular(int size, int* perimeters) {
 }
 
 int main(int argc, char **argv) {
-    int length = 1500000; // Set default set size to 5 as required in the original question
+    int length = 1500000; // Set default maximum length to 1500000 as required in the original question
 
     if (argc > 1) { // Take input from command line if a upper limit is given
         length = atoi(argv[1]);

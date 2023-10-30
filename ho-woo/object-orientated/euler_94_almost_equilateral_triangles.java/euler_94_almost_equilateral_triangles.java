@@ -29,7 +29,7 @@ class AlmostEquilateralTriangle {
 
     /* Check whether the sides form an almost equilateral triangle,
        i.e. one side (differSide) differs from the other two equal sides (equalSides) by no more than 1.
-     */
+    */
     public static boolean isAlmostEquilateral(long equalSides, long differSide) {
         if (Math.abs(equalSides * 2 - differSide) == 1) { return true; }
         return false;
@@ -40,7 +40,7 @@ class AlmostEquilateralTriangle {
         long sum = 0;
         /* Find all integer sided right-angled triangles (Pythagorean triples) within the range by Euclid's formula.
            The sum of the triple, which is the perimeter, is
-           (m^2 - n^2) + 2mn + (m^2 + n^2) = 2(m^2) + 2mn.
+           (m^2 - n^2) + 2mn + (m^2 + n^2).
            The perimeter of two right-angled triangles combined is either
            (m^2 - n^2) * 2 + (m^2 + n^2) = 3(m^2) - n^2
            or 2mn * 2 + (m^2 + n^2) = m^2 + 4mn + n^2
@@ -56,8 +56,9 @@ class AlmostEquilateralTriangle {
                 long a = m * m - n * n;
                 long b = 2 * m * n;
                 long c = m * m + n * n;
-                
+
                 long perimeter;
+
                 /* Check whether the right-angled triangle can form an almost equilateral triangle */
                 /* There are two ways to combine two right-angled triangles into an isosceles triangle. */
                 if (isAlmostEquilateral(a, c)) {    // Join by side b
@@ -78,7 +79,7 @@ class AlmostEquilateralTriangle {
 }
 
 public class euler_94_almost_equilateral_triangles {
-    static long maxPerimeter = 1000000000;    // Maximum perimeter set to 1 billion by default
+    static long maxPerimeter = 1000000000;  // Set maximum perimeter to 1 billion by default as required in the original question
     public static void main(String[] args)
     {
         if (args.length > 0)
