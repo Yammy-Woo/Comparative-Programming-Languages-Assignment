@@ -151,8 +151,8 @@ char* multiply(char* n1, char* n2) {
 
 /* Return the quotient of two large numbers represented as strings. */
 char* divide(char* n1, char* n2) {
-    if (atoll(n2) == LLONG_MAX) {
-        return divide(divide(n1, divide(n2, "1000")), "1000");
+    if (strlen(n2) >= 15) {     // Nearly exceed maximum value of long long int
+        return divide(divide(n1, divide(n2, "10000")), "10000");
     }
 
     char* tempDividend = malloc(sizeof(char) * strlen(n1));
@@ -171,7 +171,10 @@ char* divide(char* n1, char* n2) {
     }
 
     for (int i = index - 1; i < strlen(n1); i++) {
-        //printf("dividend: %lld divisor: %lld\n", atoll(tempDividend), atoll(n2));
+        if (atoll(tempDividend) == LLONG_MAX || atoll(n2) == LLONG_MAX) {
+            printf("dividend: %lld divisor: %lld\n", atoll(tempDividend), atoll(n2));
+        }
+        
         long long int tempQuot = atoll(tempDividend) / atoll(n2);    
         sprintf(tempDividend, "%lld", atoll(tempDividend) % atoll(n2));
         //printf("quot: %lld remainder: %s\n", tempQuot, tempDividend);
@@ -216,8 +219,10 @@ char* combination(int n, int r) {
     sprintf(strR, "%d", r);
     sprintf(strNR, "%d", n - r);
 
-    //printf("fac: %s\n", factorial(strN));
-    //printf("mul: %s\n", multiply(factorial(strR), factorial(strNR)));
+    // printf("n: %s\n", factorial(strN));
+    // printf("r: %s\n", factorial(strR));
+    // printf("n - r: %s\n", factorial(strNR));
+    // printf("mul: %s\n", multiply(factorial(strR), factorial(strNR)));
     return divide(factorial(strN), multiply(factorial(strR), factorial(strNR)));
 }
 
@@ -266,9 +271,9 @@ int main(int argc, char **argv)
     
     //printf("Result: %s\n", subtract("10", "1"));
     //printf("Result: %s\n", factorialWithStart("7", "10"));
-    //printf("%s\n", factorial("5"));
-    printf("%s\n", divide("4292145000", "1000"));
-    printf("%s\n", combination(29, 21));
+    // printf("%s\n", factorial("29"));
+    // printf("%s\n", divide("4292145000", "1000"));
+    printf("%s\n", combination(50, 25));
     //printf("%s\n", combination(7, 5));
     //printf("Result: %s\n", multiply("24", "5"));
 
