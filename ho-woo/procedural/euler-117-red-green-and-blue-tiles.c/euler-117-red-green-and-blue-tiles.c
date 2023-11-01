@@ -161,7 +161,7 @@ char* divide(char* n1, char* n2) {
         printf("Memory allocation failed.\n");
         exit(1);
     }
-    printf("n1: %s n2: %s\n", n1, n2);
+    //printf("n1: %s n2: %s\n", n1, n2);
 
     // Continue iteration until dividend is not smaller than divisor
     int index = 0;
@@ -170,25 +170,25 @@ char* divide(char* n1, char* n2) {
         index++;
     }
 
-    for (int i = index - 1; i < strlen(n1) - 2; i++) {
-        printf("dividend: %lld divisor: %lld\n", atoll(tempDividend), atoll(n2));
+    for (int i = index - 1; i < strlen(n1); i++) {
+        //printf("dividend: %lld divisor: %lld\n", atoll(tempDividend), atoll(n2));
         long long int tempQuot = atoll(tempDividend) / atoll(n2);    
         sprintf(tempDividend, "%lld", atoll(tempDividend) % atoll(n2));
-        printf("quot: %lld remainder: %s\n", tempQuot, tempDividend);
+        //printf("quot: %lld remainder: %s\n", tempQuot, tempDividend);
 
         char temp[strlen(n1)];
         sprintf(temp, "%lld", tempQuot);
         strcat(quotient, temp);
 
         strncat(tempDividend, &n1[i + 1], 1);
-        printf("%s\n", tempDividend);
+        //printf("%s\n", tempDividend);
     }
 
     if (strlen(quotient) == 0) {
         return "0";
     }
 
-    printf("%s\n", quotient);
+    //printf("%s\n", quotient);
 
     return quotient;
 }
@@ -216,8 +216,8 @@ char* combination(int n, int r) {
     sprintf(strR, "%d", r);
     sprintf(strNR, "%d", n - r);
 
-    printf("fac: %s\n", factorial(strN));
-    printf("mul: %s\n", multiply(factorial(strR), factorial(strNR)));
+    //printf("fac: %s\n", factorial(strN));
+    //printf("mul: %s\n", multiply(factorial(strR), factorial(strNR)));
     return divide(factorial(strN), multiply(factorial(strR), factorial(strNR)));
 }
 
@@ -268,12 +268,12 @@ int main(int argc, char **argv)
     //printf("Result: %s\n", factorialWithStart("7", "10"));
     //printf("%s\n", factorial("5"));
     printf("%s\n", divide("4292145000", "1000"));
-    //printf("%s\n", combination(29, 21));
+    printf("%s\n", combination(29, 21));
     //printf("%s\n", combination(7, 5));
     //printf("Result: %s\n", multiply("24", "5"));
 
     
-// char* count = countWays(red, green, blue, totalUnits);    // Call countWays() to get the result
-//     printf("Count: %s\n", count);
+    // char* count = countWays(red, green, blue, totalUnits);    // Call countWays() to get the result
+    // printf("Count: %s\n", count);
     return 0;
 }
