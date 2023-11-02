@@ -66,7 +66,7 @@ char* add(char* n1, char* n2) {
 char* subtract(char* n1, char* n2) {
     int borrow = 0;
     int length = strlen(n1) > strlen(n2) ? strlen(n1) : strlen(n2);
-    char* difference = malloc(sizeof(char) * length);
+    char* difference = malloc(sizeof(char) * (length + 1));
     if (difference == NULL) {
         printf("Memory allocation failed.\n");
         exit(1);
@@ -91,6 +91,9 @@ char* subtract(char* n1, char* n2) {
         strcat(newDifference, difference);     // Insert new digit before difference
         strcpy(difference, newDifference);
     }
+    if (strlen(difference) == 0) {
+        difference = "0";
+    }
     return difference;
 }
 
@@ -105,6 +108,7 @@ char* multiply(char* n1, char* n2) {
         exit(1);
     }
     product = "0";
+    //printf("n1: %s n2: %s\n", n1, n2);
 
     for (int i = strlen(n1) - 1; i >= 0; i--) {
         char* newProduct = malloc(sizeof(char) * maxLength);
@@ -139,72 +143,95 @@ char* multiply(char* n1, char* n2) {
             strcpy(newProduct, temp);
             carry = 0;
         }
+        //printf("%s\n", product);
         //printf("np+c: %s\n", newProduct);
         /* Add the product to the totak product string */
         strcat(newProduct, tens);       // Add 0 at the end
-        //printf("pro: %s\n", newProduct);
+        //printf("pro: %s newPro: %s\n", product, newProduct);
         product = add(product, newProduct);
+        //printf("%s\n", product);
         strcat(tens, "0");
     }
+    
     return product;
+}
+
+int compare(char* n1, char* n2) {
+    if (strlen(n1) < strlen(n2)) { return -1; }
+    if (strlen(n1) > strlen(n2)) { return 1; }
+    return strcmp(n1, n2);
 }
 
 /* Return the quotient of two large numbers represented as strings. */
 char* divide(char* n1, char* n2) {
-    if (strlen(n2) >= 15) {     // Nearly exceed maximum value of long long int
-        return divide(divide(n1, divide(n2, "10000")), "10000");
-    }
-
-    char* tempDividend = malloc(sizeof(char) * strlen(n1));
+    char* dividend = malloc(sizeof(char) * strlen(n1));
     char* quotient = malloc(sizeof(char) * strlen(n1));
-    if (tempDividend == NULL || quotient == NULL) {
+    char* product = malloc(sizeof(char) * (strlen(n2) + 1));
+    if (dividend == NULL || quotient == NULL || product == NULL) {
         printf("Memory allocation failed.\n");
         exit(1);
     }
-    //printf("n1: %s n2: %s\n", n1, n2);
+    printf("n1: %s n2: %s\n", n1, n2);
 
     // Continue iteration until dividend is not smaller than divisor
     int index = 0;
-    while (index < strlen(n1) && atoll(tempDividend) < atoll(n2)) {
-        strncat(tempDividend, &n1[index], 1);
+    while (index < strlen(n1) && compare(dividend, n2) < 0) {
+        strncat(dividend, &n1[index], 1);
         index++;
     }
 
     for (int i = index - 1; i < strlen(n1); i++) {
-        if (atoll(tempDividend) == LLONG_MAX || atoll(n2) == LLONG_MAX) {
-            printf("dividend: %lld divisor: %lld\n", atoll(tempDividend), atoll(n2));
+        printf("dividend: %s divisor: %s\n", dividend, n2);
+
+        int times = (dividend[0] - '0') / (n2[0] - '0');
+        printf("times: %d\n", times);
+
+        char tempQuot[10];
+        sprintf(tempQuot, "%d", times);
+
+        product = multiply(n2, tempQuot);
+
+        printf("dividend: %s product: %s\n", dividend, product);
+        while (compare(dividend, product) < 0) {
+            times--;
+            sprintf(tempQuot, "%d", times);
+            product = multiply(n2, tempQuot);
         }
-        
-        long long int tempQuot = atoll(tempDividend) / atoll(n2);    
-        sprintf(tempDividend, "%lld", atoll(tempDividend) % atoll(n2));
-        //printf("quot: %lld remainder: %s\n", tempQuot, tempDividend);
 
-        char temp[strlen(n1)];
-        sprintf(temp, "%lld", tempQuot);
-        strcat(quotient, temp);
+        while (times < 10 && compare(subtract(dividend, product), n2) >= 0) {
+            times++;
+            sprintf(tempQuot, "%d", times);
+            product = multiply(n2, tempQuot);
+            printf("times: %d product: %s\n", times, product);
+        }
+        printf("product: %s\n", product);
+        dividend = subtract(dividend, product);
 
-        strncat(tempDividend, &n1[i + 1], 1);
-        //printf("%s\n", tempDividend);
+        printf("quot: %s remainder: %s\n", tempQuot, dividend);
+
+        strcat(quotient, tempQuot);
+
+        strncat(dividend, &n1[i + 1], 1);
+        printf("%s\n", dividend);
     }
 
     if (strlen(quotient) == 0) {
         return "0";
     }
 
-    //printf("%s\n", quotient);
+    printf("quotient: %s\n", quotient);
 
     return quotient;
 }
 
 char* factorialWithStart(char* r, char* n) {
-    // printf("r: %s n: %s\n", r, n);
-    if (strcmp(n, r) <= 0) {
+    //printf("r: %s n: %s\n", r, n);
+    if (compare(n, r) == 0) {
         return "1";
     }
-    char* temp = factorialWithStart(r, subtract(n, "1"));
     //printf("sub: %s temp: %s\n", subtract(n, "1"), temp);
-    //printf("%s*temp: %s\n", n, multiply("5", "24"));
-    return multiply(n, temp);
+    //printf("%s * %s: %s\n", n, temp, multiply(n, temp));
+    return multiply(n, factorialWithStart(r, subtract(n, "1")));
 }
 
 char* factorial(char* n) {
@@ -212,22 +239,29 @@ char* factorial(char* n) {
 }
 
 char* combination(int n, int r) {
-    char strN[MAX_LENGTH];
-    char strR[MAX_LENGTH];
-    char strNR[MAX_LENGTH];
+    char* strN = malloc(sizeof(char) * 2);
+    char* strR = malloc(sizeof(char) * 2);
+    char* strNR = malloc(sizeof(char) * 2);;
     sprintf(strN, "%d", n);
     sprintf(strR, "%d", r);
     sprintf(strNR, "%d", n - r);
 
-    // printf("n: %s\n", factorial(strN));
-    // printf("r: %s\n", factorial(strR));
-    // printf("n - r: %s\n", factorial(strNR));
-    // printf("mul: %s\n", multiply(factorial(strR), factorial(strNR)));
-    return divide(factorial(strN), multiply(factorial(strR), factorial(strNR)));
+    if (r == 1) { return strN; }
+    if (n == r) { return "1"; }
+
+    //printf("n: %s\n", factorial(strN));
+    //printf("r: %s\n", factorial(strR));
+    printf("n: %d r: %d\n", n, r);
+    printf("n / r: %s\n", factorialWithStart(strR, strN));
+    printf("n - r: %s\n", factorial(strNR));
+    //printf("mul: %s\n", multiply(factorial(strR), factorial(strNR)));
+    //return divide(factorial(strN), multiply(factorial(strR), factorial(strNR)));
+    return divide(factorialWithStart(strR, strN), factorial(strNR));
 }
 
 char* countWays(int red, int green, int blue, int totalUnits) {
     char* count = malloc(sizeof(char) * MAX_LENGTH);
+    char* ways = malloc(sizeof(char) * MAX_LENGTH);
     if (count == NULL) {
         printf("Memory allocation failed.\n");
         exit(1);
@@ -239,7 +273,8 @@ char* countWays(int red, int green, int blue, int totalUnits) {
         for (int j = 0; i * red + j * green <= totalUnits; j++) {
             for (int k = 0; i * red + j * green + k * blue <= totalUnits; k++) {
                 int tiles = i + j + k + (totalUnits - red * i - green * j - blue * k);   // Find the number of tiles in the row
-                char* ways = multiply(combination(tiles, i), multiply(combination(tiles - i, j), combination(tiles - i - j, k)));
+                //printf("tiles: %d\n", tiles);
+                ways = multiply(combination(tiles, i), multiply(combination(tiles - i, j), combination(tiles - i - j, k)));
                 printf("Tiles: %d\tRed: %d\tGreen: %d\tBlue: %d\tGrey: %d\tWays: %s\n", tiles, i, j, k, tiles - i - j - k, ways);
                 printf("%s\n %s\n %s\n", combination(tiles, i), combination(tiles - i, j), combination(tiles - i - j, k));
                 count = add(count, ways);
@@ -261,7 +296,6 @@ int main(int argc, char **argv)
 
     int colors[] = {red, green, blue};            // Tile types
     int size = sizeof(colors) / sizeof(int);    // Number of tile types
-    //int count = countWays(size, colors, totalUnits);    // Call countWays() to get the result
 
     char* n1 = malloc(sizeof(char) * 100);
     char* n2 = malloc(sizeof(char) * 100);
@@ -269,16 +303,23 @@ int main(int argc, char **argv)
     strcpy(n1, "0");
     strcpy(n2, "0");
     
-    //printf("Result: %s\n", subtract("10", "1"));
-    //printf("Result: %s\n", factorialWithStart("7", "10"));
-    // printf("%s\n", factorial("29"));
-    // printf("%s\n", divide("4292145000", "1000"));
-    printf("%s\n", combination(50, 25));
-    //printf("%s\n", combination(7, 5));
-    //printf("Result: %s\n", multiply("24", "5"));
-
+    //printf("Result: %s\n", subtract("1", "1"));
+    //printf("Result: %s\n", factorialWithStart("5", "20"));
+    //printf("%s\n", factorial("20"));
+    // printf("Result: %s\n", divide("10055", "8"));
+    //printf("%s\n", combination(39, 1));
+    //printf("%s\n", combination(20, 5));
+    //printf("Result: %s\n", multiply("523022617466601111760007224100074291200000000", "9"));
+    // char *string, *endptr;
+    // unsigned long long int dividend;
+    // string = "15511210043330985984000000";
+    // strtoull(string, &endptr, dividend);
+    // printf("%llu\n", dividend);
+    // char *str1 = "5600";
+    // char *str2 = "8";
+    // printf("%s\n",  strcmp(str1, str2) < 0 ? "True" : "False");
     
-    // char* count = countWays(red, green, blue, totalUnits);    // Call countWays() to get the result
-    // printf("Count: %s\n", count);
+    char* count = countWays(red, green, blue, totalUnits);    // Call countWays() to get the result
+    printf("Count: %s\n", count);
     return 0;
 }
