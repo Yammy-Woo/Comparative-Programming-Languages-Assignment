@@ -73,7 +73,7 @@ long int sumPerimeters(long int maxPerimeter) {
 int main(int argc, char **argv) {
     long int maxPerimeter = 1000000000;  // Set maximum perimeter to 1 billion by default as required in the original question
 
-    if (argc > 1) { // Take input from command line if a upper limit is given
+    if (argc > 1) { // Take input from command line if given
         maxPerimeter = atoi(argv[1]);
     }
 
