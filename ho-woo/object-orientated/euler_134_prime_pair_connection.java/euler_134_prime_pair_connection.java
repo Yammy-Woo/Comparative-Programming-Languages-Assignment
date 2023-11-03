@@ -117,6 +117,5 @@ public class euler_134_prime_pair_connection {
         Prime.generatePrimes(limit);
 
         System.out.println(Prime.PrimePairConnection.sumPairs());
-        //System.out.println(ModularInverse.modularInverse(1000, 13));
     }
 }
