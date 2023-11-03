@@ -4,7 +4,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-// Since the maximum limit of prime number is 10000, the maximum number of digits in a prime number is 5.
+/* Set maximum limit of prime number to 10000 to reduce computation time.
+   This will be enough to produce a set of five primes.
+   Since the maximum limit of prime number is 10000, the maximum number of digits in a prime number is 5.
+*/
 #define MAXLIMIT 10000
 #define MAXDIGIT 5    
 

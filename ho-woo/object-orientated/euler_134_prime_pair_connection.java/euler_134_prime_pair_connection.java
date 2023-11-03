@@ -4,8 +4,8 @@ import java.lang.Math;
 /* Reused Prime class from problem 60 */
 class Prime {
     final static int firstPrime = 2;
-    private static ArrayList<Integer> primes = new ArrayList<Integer>();
-    private static int lastPrime = 0;           // Last element in primes, which is also the largest prime in primes
+    public static ArrayList<Integer> primes = new ArrayList<Integer>();
+    public static int lastPrime = 0;           // Last element in primes, which is also the largest prime in primes
 
     public static boolean isPrime(long n) {        
         if (!isPrimeByList(n)) { return false; }
@@ -45,32 +45,6 @@ class Prime {
         lastPrime = n;
         primes.add(lastPrime);
     }
-
-    static class PrimePairConnection {
-        public static long sumPairs() {
-            /* According to the problem, n is a multiple of p2 and has its last digits formed by p1 
-               Let n = m * 10^d + p1, where d = number of digits of p1,
-               such that the last d digits of m are 0s.
-               n mod p2 = (m * 10^d + p1) mod p2 = 0
-               => m * 10^d mod p2 = -p1 mod p2
-               => m = (-p1 * (10^d)^-1) mod p2
-               (10^d)^-1, the multiplicative inverse of 10^d,
-               can be found using Extended Euclid Algorithm.
-            */
-            long sum = 0, zeros, m;
-            int p1 = 5, p2;
-            for (int prime : primes) {
-                if (prime <= 5) { continue; }
-                p2 = prime;
-                zeros = (int) Math.pow(10, (int) Math.log10(p1) + 1);
-                /* (A % B + B) % B can handle negative A */
-                m = (-p1 * ModularInverse.modularInverse(zeros, p2) % p2 + p2) % p2;
-                sum += m * zeros + p1;
-                p1 = prime;
-            }
-            return sum;
-        }
-    }
 }
 
 /* Find modular inverse using Extended Euclid Algorithm.
@@ -105,17 +79,43 @@ class ModularInverse {
     }
 }
 
+class PrimePairConnection {
+    public static long sumPairs() {
+        /* According to the problem, n is a multiple of p2 and has its last digits formed by p1 
+            Let n = m * 10^d + p1, where d = number of digits of p1,
+            such that the last d digits of m are 0s.
+            n mod p2 = (m * 10^d + p1) mod p2 = 0
+            => m * 10^d mod p2 = -p1 mod p2
+            => m = (-p1 * (10^d)^-1) mod p2
+            (10^d)^-1, the multiplicative inverse of 10^d,
+            can be found using Extended Euclid Algorithm.
+        */
+        long sum = 0, zeros, m;
+        int p1 = 5, p2;
+        for (int prime : Prime.primes) {
+            if (prime <= 5) { continue; }
+            p2 = prime;
+            zeros = (int) Math.pow(10, (int) Math.log10(p1) + 1);
+            /* (A % B + B) % B can handle negative A */
+            m = (-p1 * ModularInverse.modularInverse(zeros, p2) % p2 + p2) % p2;
+            sum += m * zeros + p1;
+            p1 = prime;
+        }
+        return sum;
+    }
+}
+
 public class euler_134_prime_pair_connection {
-    static int limit = 1000000;    // Number of primes in the set
+    static int limit = 1000000;    // Set the maximum limit of p1 to 1000000 by default as required in the original question
     public static void main(String[] args)
     {
-        if (args.length > 0)
+        if (args.length > 0)    // Take input from command line if given
         {
-            limit = Integer.parseInt(args[0]);
+            limit = Integer.parseInt(args[0]); 
         }
 
         Prime.generatePrimes(limit);
 
-        System.out.println(Prime.PrimePairConnection.sumPairs());
+        System.out.println(PrimePairConnection.sumPairs());
     }
 }
