@@ -4,8 +4,8 @@ import java.lang.Math;
 /* Reused Prime class from problem 60 */
 class Prime {
     final static int firstPrime = 2;
-    private static ArrayList<Integer> primes = new ArrayList<Integer>();
-    private static int lastPrime = 0;           // Last element in primes, which is also the largest prime in primes
+    public static ArrayList<Integer> primes = new ArrayList<Integer>();
+    public static int lastPrime = 0;           // Last element in primes, which is also the largest prime in primes
 
     public static boolean isPrime(long n) {        
         if (!isPrimeByList(n)) { return false; }
@@ -45,49 +45,77 @@ class Prime {
         lastPrime = n;
         primes.add(lastPrime);
     }
+}
 
-    static class PrimePairConnection {
-        public static int lastDigits(int num, int n) {
-            return num % ((int) Math.pow(10, (int) Math.log10(n) + 1));
+/* Find modular inverse using Extended Euclid Algorithm.
+   References: 
+    https://www.khanacademy.org/computing/computer-science/cryptography/modarithmetic/a/modular-inverses
+    https://brilliant.org/wiki/extended-euclidean-algorithm/#:~:text=It%20is%20a%20method%20of,complicated%20algorithms%20in%20number%20theory
+    https://www.geeksforgeeks.org/multiplicative-inverse-under-modulo-m/
+*/ 
+class ModularInverse {
+    public static long x;
+    public static long y;
+    
+    public static long egcd(long m, long n) {
+        if (m == 0) {
+            x = 0;
+            y = 1;
+            return n;
         }
 
-        
-        public static int sumPairs() {
-            /* According to the problem, n is a multiple of p2 and has its last digits formed by p1 
-               Let n = m + p1
-               n mod p2 = (m + p1) mod p2 = m mod p2 + p1 mod p2 = 0
-               => m mod p2 = -p1 mod p2
-            */
-            int sum = 0;
-            int p1 = 5;
-            for (int prime : primes) {
-                if (prime <= 5) { continue; }
-                int p2 = prime;
-                int n = p2;
-                while (lastDigits(n , p1) != p1) {
-                    n += p2;
-                }
-                System.out.println(n);
-                sum += n;
-                p1 = prime;
-            }
-            return sum;
+        long gcd = egcd(n % m, m);
+
+        long temp = x;
+        x = y - n / m * x;
+        y = temp;
+
+        return gcd;
+    }
+
+    public static long modularInverse(long n1, long n2) {
+        egcd(n1, n2);
+        return x % n2;
+    }
+}
+
+class PrimePairConnection {
+    public static long sumPairs() {
+        /* According to the problem, n is a multiple of p2 and has its last digits formed by p1 
+            Let n = m * 10^d + p1, where d = number of digits of p1,
+            such that the last d digits of m are 0s.
+            n mod p2 = (m * 10^d + p1) mod p2 = 0
+            => m * 10^d mod p2 = -p1 mod p2
+            => m = (-p1 * (10^d)^-1) mod p2
+            (10^d)^-1, the multiplicative inverse of 10^d,
+            can be found using Extended Euclid Algorithm.
+        */
+        long sum = 0, zeros, m;
+        int p1 = 5, p2;
+        for (int prime : Prime.primes) {
+            if (prime <= 5) { continue; }
+            p2 = prime;
+            zeros = (int) Math.pow(10, (int) Math.log10(p1) + 1);
+            /* (A % B + B) % B can handle negative A */
+            m = (-p1 * ModularInverse.modularInverse(zeros, p2) % p2 + p2) % p2;
+            sum += m * zeros + p1;
+            p1 = prime;
         }
+        return sum;
     }
 }
 
 public class euler_134_prime_pair_connection {
-    static int limit = 1000000;    // Number of primes in the set
+    static int limit = 1000000;    // Set the maximum limit of p1 to 1000000 by default as required in the original question
     public static void main(String[] args)
     {
-        if (args.length > 0)
+        if (args.length > 0)    // Take input from command line if given
         {
-            limit = Integer.parseInt(args[0]);
+            limit = Integer.parseInt(args[0]); 
         }
 
         Prime.generatePrimes(limit);
-        Prime.generateNext();
 
-        System.out.println(Prime.PrimePairConnection.sumPairs());
+        System.out.println(PrimePairConnection.sumPairs());
     }
 }
